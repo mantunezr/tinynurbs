@@ -40,22 +40,8 @@ template <typename T> int findSpan(unsigned int degree, const std::vector<T> &kn
 
     // Binary search
     // TODO: Replace this with std::lower_bound
-    int low = degree;
-    int high = n + 1;
-    int mid = (int)std::floor((low + high) / 2.0);
-    while (u < knots[mid] || u >= knots[mid + 1])
-    {
-        if (u < knots[mid])
-        {
-            high = mid;
-        }
-        else
-        {
-            low = mid;
-        }
-        mid = (int)std::floor((low + high) / 2.0);
-    }
-    return mid;
+    auto it = std::lower_bound(knots.begin() + degree, knots.begin() + n + 2, u);
+    return static_cast<int>(it - knots.begin()) - 1;
 }
 
 /**
